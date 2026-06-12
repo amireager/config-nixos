@@ -2,8 +2,8 @@
 
 {
   # --- SYSTEM IMPORTS ---
-  imports = [ 
-    ./hardware-configuration.nix 
+  imports = [
+    ./hardware-configuration.nix
     ../../modules/desktop/niri/niri-system.nix
   ];
 
@@ -12,7 +12,12 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
-    # Github token for high-rate API access (Keep it safe!)
+
+    # Binary cache for niri (avoids compiling from source on every update)
+    substituters = [ "https://niri.cachix.org" ];
+    trusted-public-keys = [
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+    ];
   };
 
   # --- BOOTLOADER & KERNEL SETTINGS ---
@@ -21,31 +26,31 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # --- LAPTOP OPTIMIZATIONS: POWER & THERMAL ---
-  services.tlp.enable = true; 
+  services.tlp.enable = true;
   services.upower.enable = true;
   powerManagement.enable = true;
 
   # --- HYBRID GRAPHICS: NVIDIA + AMD ---
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  
+
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true; 
+    powerManagement.enable = true;
 
-    # --- ADD THIS LINE TO FIX THE ERROR ---
-    # Set to true if you want open source kernel modules (Turing+ GPUs)
-    # Set to false if you want the traditional closed source ones
+    # Closed-source kernel modules (set true only for Turing+ GPUs)
     open = false;
 
     prime = {
-      offload.enable = true;
+      offload = {
+        enable = true;
+        enableOffloadCmd = true; # Adds the 'nvidia-offload <app>' command
+      };
       amdgpuBusId = "PCI:4:0:0"; # Verify using: lspci | grep -i vga
       nvidiaBusId = "PCI:1:0:0";
     };
   };
 
-  # --- NETWORK AND DNS SETTINGS ---
   # --- NETWORKING CONFIGURATION ---
   networking = {
     hostName = "nixos";
@@ -84,11 +89,36 @@
     };
   };
 
+  # --- BLUETOOTH ---
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true; # System D-Bus service required by blueman GUI
+
+  # --- SECURITY & SESSION SERVICES ---
+  # PAM entry so swaylock can actually verify your password (CRITICAL!)
+  security.pam.services.swaylock = { };
+  # Authentication dialogs for GUI apps (mounting disks, network changes, ...)
+  security.polkit.enable = true;
+
+  # --- FILE MANAGER (SYSTEM LEVEL) ---
+  # Thunar needs system D-Bus services for mounting/trash; HM can't provide them
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
+  services.gvfs.enable = true; # USB drives, MTP (phones), Trash support
+  services.tumbler.enable = true; # Thumbnails for images/videos
+
   # --- USER SETUP & SHELL CONFIGURATION ---
   users.users.amir = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" "libvirtd" ];
-    shell = pkgs.fish; 
+    shell = pkgs.fish;
   };
   programs.fish.enable = true;
 
@@ -112,5 +142,5 @@
     vim git gh wget curl pciutils
   ];
 
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "25.11";
 }
