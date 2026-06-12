@@ -37,9 +37,11 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
+    # GTX 1650 (Turing): GPU fully powers off when idle -> big battery savings
+    powerManagement.finegrained = true;
 
-    # Closed-source kernel modules (set true only for Turing+ GPUs)
-    open = false;
+    # GTX 1650 is Turing (TU117) -> open kernel modules are supported & recommended
+    open = true;
 
     prime = {
       offload = {
@@ -106,7 +108,7 @@
   # Thunar needs system D-Bus services for mounting/trash; HM can't provide them
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [
+    plugins = with pkgs; [
       thunar-archive-plugin
       thunar-volman
     ];

@@ -1,4 +1,3 @@
-
 { pkgs, inputs, ... }:
 
 {
@@ -6,7 +5,7 @@
   # Enable the Niri window manager using the flake input for the latest updates
   programs.niri = {
     enable = true;
-    package = inputs.niri.packages.${pkgs.system}.niri;
+    package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri;
   };
 
   # --- DISPLAY MANAGER (SDDM) ---

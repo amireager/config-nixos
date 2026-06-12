@@ -1,4 +1,3 @@
-
 {
   description = "Amir's Modular NixOS Flake - Optimized for 2026";
 
@@ -46,8 +45,7 @@
             extraSpecialArgs = { inherit inputs; };
             
             # The entry point for the user 'amir'
-            # We will create this file to import all other modules
-            users.amir = import ./home/pkgs.nix;
+            users.amir = import ./home/default.nix;
 
             # Safety: Rename existing config files instead of failing the build
             backupFileExtension = "backup";
