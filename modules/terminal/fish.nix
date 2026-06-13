@@ -19,7 +19,6 @@ in
     eza
     bottom
     yazi
-    neovim
 
     # Better completion engine for many CLIs
     carapace
