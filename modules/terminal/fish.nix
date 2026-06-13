@@ -1,8 +1,9 @@
 { pkgs, lib, ... }:
 
 let
-  # Change this to your real NixOS flake host name.
+  # Change these to your real flake targets.
   nixosHost = "nixos";
+  homeTarget = "amir@nixos";
 in
 {
   # --- TERMINAL PACKAGES REQUIRED BY FISH CONFIG ---
@@ -18,6 +19,7 @@ in
     eza
     bottom
     yazi
+    neovim
 
     # Better completion engine for many CLIs
     carapace
@@ -247,6 +249,13 @@ in
       nfc = "nix flake check";
       ngc = "sudo nix-collect-garbage --delete-older-than 14d";
       nopt = "nix-output-monitor";
+
+      # Home Manager shortcuts
+      hm = "home-manager";
+      hms = "home-manager switch --flake .#${homeTarget}";
+      hmb = "home-manager build --flake .#${homeTarget}";
+      hmg = "home-manager generations";
+      hme = "home-manager expire-generations '-7 days'";
 
       # NixOS rebuild shortcuts
       nrs = "sudo nixos-rebuild switch --flake .#${nixosHost}";

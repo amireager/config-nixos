@@ -5,16 +5,16 @@
     # Core: NixOS Unstable for the latest packages and drivers
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Desktop: Niri (Scrollable tiling compositor)
+    # Desktop: Niri scrollable tiling compositor
     niri.url = "github:YaLTeR/niri";
 
-    # UI Framework: Quickshell (The backbone for our custom bar/control center)
+    # UI Framework: Quickshell for custom shell/bar/control center
     quickshell = {
       url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Browser: Zen (Modern, privacy-focused Firefox fork)
+    # Browser: Zen Firefox fork
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     # User Management: Home Manager
@@ -24,34 +24,64 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      # Pass flake inputs to all modules for easy access via 'inputs'
-      specialArgs = { inherit inputs; };
+  outputs = inputs@{
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  }:
+  let
+    system = "x86_64-linux";
+    username = "amir";
+    hostname = "nixos";
+
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
+    specialArgs = {
+      inherit inputs username hostname system;
+    };
+  in
+  {
+    nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      inherit system specialArgs;
 
       modules = [
-        # 1. Hardware and System-level configuration
+        # Host-specific NixOS configuration
         ./hosts/nixos/configuration.nix
-        
-        # 2. Host-specific platform setting
-        { nixpkgs.hostPlatform = "x86_64-linux"; }
 
-        # 3. Home-manager setup as a NixOS module
+        # Home Manager as a NixOS module
         home-manager.nixosModules.home-manager
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = { inherit inputs; };
-            
-            # The entry point for the user 'amir'
-            users.amir = import ./home/default.nix;
-
-            # Safety: Rename existing config files instead of failing the build
             backupFileExtension = "backup";
+            extraSpecialArgs = specialArgs;
+
+            # Main Home Manager entry point for user 'amir'
+            users.${username} = import ./home/default.nix;
           };
         }
       ];
     };
+
+    # Standalone Home Manager target.
+    # Use this for fast user-level rebuilds:
+    #   home-manager switch --flake .#amir@nixos
+    homeConfigurations."${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = specialArgs;
+      modules = [
+        ./home/default.nix
+      ];
+    };
+
+    # Optional formatter for this flake:
+    #   nix fmt
+    formatter.${system} = pkgs.alejandra;
   };
 }
+
