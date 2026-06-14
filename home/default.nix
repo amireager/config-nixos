@@ -62,8 +62,6 @@
 
   # --- DAILY-DRIVER APPLICATIONS ---
   home.packages = with pkgs; [
-    home-manager
-
     # Browsers & Communication
     inputs.zen-browser.packages."${stdenv.hostPlatform.system}".default
     telegram-desktop
