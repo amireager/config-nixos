@@ -24,13 +24,12 @@
     };
   };
 
-  outputs = inputs@{
+  outputs = inputs @ {
     self,
     nixpkgs,
     home-manager,
     ...
-  }:
-  let
+  }: let
     system = "x86_64-linux";
     username = "amir";
     hostname = "nixos";
@@ -43,8 +42,7 @@
     specialArgs = {
       inherit inputs username hostname system;
     };
-  in
-  {
+  in {
     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
       inherit system specialArgs;
 
@@ -62,7 +60,7 @@
             extraSpecialArgs = specialArgs;
 
             # Main Home Manager entry point for user 'amir'
-            users.${username} = import ./home/default.nix;
+            users.${username} = import ./home/amir;
           };
         }
       ];
@@ -84,4 +82,3 @@
     formatter.${system} = pkgs.alejandra;
   };
 }
-
