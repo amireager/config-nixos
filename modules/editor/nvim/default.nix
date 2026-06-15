@@ -1,75 +1,144 @@
 { pkgs, ... }:
 
+let
+  treesitterGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: with p; [
+    bash
+    c
+    cpp
+    css
+    dockerfile
+    fish
+    git_config
+    git_rebase
+    gitattributes
+    gitcommit
+    gitignore
+    html
+    javascript
+    jsdoc
+    json
+    lua
+    luadoc
+    markdown
+    markdown_inline
+    nix
+    python
+    regex
+    rust
+    toml
+    tsx
+    typescript
+    vim
+    vimdoc
+    yaml
+  ]);
+in
 {
-  # --- NEOVIM CONFIGURATION (Modern Lua Approach) ---
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    vimdiffAlias = true;
 
-    # --- LUA-BASED CONFIGURATION ---
-    initLua = ''
-      -- Basic UI & Numbers
-      vim.opt.number = true
-      vim.opt.relativenumber = true
-      vim.opt.cursorline = true
-      vim.opt.mouse = 'a'
-      vim.opt.termguicolors = true
+    withNodeJs = true;
+    withPython3 = false;
+    withRuby = false;
 
-      -- Tabs & Indentation
-      vim.opt.tabstop = 2
-      vim.opt.shiftwidth = 2
-      vim.opt.expandtab = true
-      vim.opt.smartindent = true
-
-      -- Search & Clipboard
-      vim.opt.ignorecase = true
-      vim.opt.smartcase = true
-      vim.opt.hlsearch = false -- Don't keep highlighting after search
-      vim.opt.clipboard = 'unnamedplus'
-
-      -- Undo & Backups (Clean & Organized)
-      vim.opt.undofile = true
-      vim.opt.swapfile = false
-      vim.opt.backup = false
-
-      -- Performance Fix: Fast ESC
-      vim.opt.timeoutlen = 300
-    '';
-
-    # --- PLUGINS (Curated & Fast) ---
-    plugins = with pkgs.vimPlugins; [
-      # Syntax Highlighting (Treesitter)
-      nvim-treesitter.withAllGrammars
-      
-      # File Explorer (Fast & Modern)
-      nvim-tree-lua
-      
-      # Theme: Catppuccin (To match your Fish & Kitty)
-      catppuccin-nvim
-
-      # Status Line
-      lualine-nvim
-    ];
-
-    # --- SYSTEM DEPENDENCIES (LSPs & Compilers) ---
     extraPackages = with pkgs; [
-      # Standard compilers & tools
-      gcc
-      ripgrep
+      # Core search and runtime tools
+      git
       fd
-      wl-clipboard # System-wide clipboard for Wayland/Niri
-      
-      # LSPs (Language Servers)
-      lua-language-server
-      nil # Nix LSP
-      pyright # Python LSP
-    ];
-  };
+      ripgrep
+      fzf
+      tmux
+      yazi
 
-  # Activation script for custom setup (Optional)
-  # home.activation.nvim-dirs = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #   mkdir -p ~/.cache/nvim/{backup,swap,undo}
-  # '';
+      # Python
+      pyright
+      ruff
+      python3Packages.ipython
+
+      # JavaScript / TypeScript / Web
+      nodePackages.typescript-language-server
+      nodePackages.prettier
+      vscode-langservers-extracted
+      tailwindcss-language-server
+      emmet-language-server
+
+      # Rust
+      rust-analyzer
+      cargo
+      clippy
+      rustfmt
+
+      # Nix / Lua / Shell / Docs
+      nixd
+      alejandra
+      statix
+      deadnix
+      lua-language-server
+      stylua
+      fish
+      bash-language-server
+      shellcheck
+      shfmt
+      taplo
+      yaml-language-server
+      marksman
+    ];
+
+    plugins = with pkgs.vimPlugins; [
+      # Core UI
+      catppuccin-nvim
+      nvim-web-devicons
+      lualine-nvim
+      bufferline-nvim
+      which-key-nvim
+      snacks-nvim
+
+      # Syntax
+      treesitterGrammars
+      nvim-ts-autotag
+
+      # Completion
+      blink-cmp
+      friendly-snippets
+
+      # LSP / format / lint
+      nvim-lspconfig
+      conform-nvim
+      # nvim-lint
+
+      # Editing and productivity
+      mini-nvim
+      guess-indent-nvim
+
+      # Git and REPL
+      gitsigns-nvim
+      vim-slime
+
+      # Required by several plugins
+      plenary-nvim
+    ];
+
+    initLua = ''
+      ${builtins.readFile ./lua/options.lua}
+      ${builtins.readFile ./lua/keymaps.lua}
+      ${builtins.readFile ./lua/autocmds.lua}
+      ${builtins.readFile ./lua/ui.lua}
+      ${builtins.readFile ./lua/snacks.lua}
+      ${builtins.readFile ./lua/completion.lua}
+      ${builtins.readFile ./lua/lsp.lua}
+      ${builtins.readFile ./lua/format-lint.lua}
+      ${builtins.readFile ./lua/git.lua}
+      ${builtins.readFile ./lua/productivity.lua}
+      ${builtins.readFile ./lua/run.lua}
+    '';
+  };
 }
