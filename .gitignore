@@ -1,0 +1,39 @@
+# Nix build outputs
+result
+result-*
+
+# Direnv
+.direnv/
+
+# Env / secrets
+.env
+.env.*
+!.envrc
+
+# Local secrets
+secrets/*
+!secrets/README.md
+!secrets/.gitkeep
+!secrets/*.example.*
+
+# Editor / OS
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build outputs
+node_modules/
+dist/
+build/
+out/
+target/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs
+*.log
