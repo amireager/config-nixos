@@ -73,7 +73,7 @@
       inherit pkgs;
       extraSpecialArgs = specialArgs;
       modules = [
-        ./home/default.nix
+        ./home/amir
       ];
     };
 
