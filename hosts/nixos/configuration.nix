@@ -142,6 +142,7 @@
   # --- MINIMAL SYSTEM PACKAGES ---
   environment.systemPackages = with pkgs; [
     vim git gh wget curl pciutils
+    home-manager
   ];
 
   system.stateVersion = "25.11";
