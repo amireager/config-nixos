@@ -129,5 +129,5 @@
   ];
 
   # NixOS release this config was written against. Keep stable.
-  system.stateVersion = "25.11";
+  system.stateVersion = "24.11";
 }

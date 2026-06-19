@@ -28,7 +28,7 @@
   # --- USER ENVIRONMENT (essentials) ---
   home.username = "amir";
   home.homeDirectory = "/home/amir";
-  home.stateVersion = "25.11";
+  home.stateVersion = "24.11";
 
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
