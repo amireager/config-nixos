@@ -1,39 +1,37 @@
-{ pkgs, ... }:
-
-let
-  treesitterGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: with p; [
-    bash
-    c
-    cpp
-    css
-    dockerfile
-    fish
-    git_config
-    git_rebase
-    gitattributes
-    gitcommit
-    gitignore
-    html
-    javascript
-    jsdoc
-    json
-    lua
-    luadoc
-    markdown
-    markdown_inline
-    nix
-    python
-    regex
-    rust
-    toml
-    tsx
-    typescript
-    vim
-    vimdoc
-    yaml
-  ]);
-in
-{
+{pkgs, ...}: let
+  treesitterGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
+    with p; [
+      bash
+      c
+      cpp
+      css
+      dockerfile
+      fish
+      git_config
+      git_rebase
+      gitattributes
+      gitcommit
+      gitignore
+      html
+      javascript
+      jsdoc
+      json
+      lua
+      luadoc
+      markdown
+      markdown_inline
+      nix
+      python
+      regex
+      rust
+      toml
+      tsx
+      typescript
+      vim
+      vimdoc
+      yaml
+    ]);
+in {
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -47,7 +45,7 @@ in
     vimdiffAlias = true;
 
     withNodeJs = true;
-    withPython3 = false;
+    withPython3 = true;
     withRuby = false;
 
     extraPackages = with pkgs; [

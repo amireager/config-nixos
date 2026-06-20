@@ -96,6 +96,9 @@
   };
   programs.fish.enable = true;
 
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+
   fonts.packages = with pkgs; [
     vazir-fonts
     nerd-fonts.jetbrains-mono

@@ -39,13 +39,17 @@
 
       # Domain rules to route specific traffic through Shecan
       domain-rules = [
-        "/google.com/ /gemini.google.com/ /googleusercontent.com/ -nameserver shecan"
+        "/google.com/ -nameserver shecan"
+        "/gemini.google.com/ -nameserver shecan"
+        "/googleusercontent.com/ -nameserver shecan"
+        "/googleapis.com/ -nameserver shecan"
+        "/gstatic.com/ -nameserver shecan"
       ];
 
       # Performance and security tweaks
       bind = ["127.0.0.1"]; # Listen only on localhost
-      prefetch-domain = "yes";
-      serve-expired = "yes";
+      prefetch-domain = true;
+      serve-expired = true;
       cache-size = 4096;
     };
   };
