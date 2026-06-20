@@ -33,7 +33,7 @@
     # --- Multimedia (view & play) ---
     imv # Image viewer (Wayland native)
     mpv # Video/audio player
-    vlc # Heavy-duty fallback player
+    # vlc # Heavy-duty fallback player
     playerctl # Media keys control (play/pause from keyboard)
 
     # --- Documents ---

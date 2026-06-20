@@ -39,11 +39,7 @@
 
       # Domain rules to route specific traffic through Shecan
       domain-rules = [
-        "/google.com/ -nameserver shecan"
         "/gemini.google.com/ -nameserver shecan"
-        "/googleusercontent.com/ -nameserver shecan"
-        "/googleapis.com/ -nameserver shecan"
-        "/gstatic.com/ -nameserver shecan"
       ];
 
       # Performance and security tweaks
