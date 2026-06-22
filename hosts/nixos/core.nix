@@ -31,9 +31,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # --- NETWORKING (base; hostName & DNS tweaks live per-host) ---
-  networking.networkmanager.enable = true;
-
   # ============================================================
   #  DESKTOP STACK (Niri + login + audio + graphics)
   # ============================================================
@@ -121,7 +118,6 @@
     git
     gh
     wget
-    curl
     pciutils
     home-manager
 
