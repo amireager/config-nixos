@@ -131,7 +131,7 @@
   # ║    warp-cli tunnel endpoint set 162.159.195.1:2408            ║
   # ╚═══════════════════════════════════════════════════════════════╝
 
-  services.cloudflare-warp.enable = true;
+  # services.cloudflare-warp.enable = true;
 
   # ╔═══════════════════════════════════════════════════════════════╗
   # ║  LAYER 5: SING-BOX (backup — commented)                       ║

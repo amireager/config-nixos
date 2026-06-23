@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # --- CURSOR ---
   home.pointerCursor = {
     gtk.enable = true;
@@ -13,6 +11,7 @@
   # --- GTK THEME (GTK3/4 apps: Thunar, Telegram, ...) ---
   gtk = {
     enable = true;
+    gtk4.theme = null;
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;

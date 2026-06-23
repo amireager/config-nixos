@@ -7,7 +7,7 @@
   # Packages that define the look and feel of the desktop
   home.packages = with pkgs; [
     # UI Components
-    swww # Wallpaper daemon (supports GIFs/transitions)
+    awww # Wallpaper daemon (supports GIFs/transitions)
     mako # Lightweight notification daemon
     fuzzel # Simple Wayland app launcher
     wl-clipboard # Copy/Paste support for Wayland

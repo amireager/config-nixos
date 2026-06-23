@@ -63,8 +63,9 @@ in {
       python3Packages.ipython
 
       # JavaScript / TypeScript / Web
-      nodePackages.typescript-language-server
-      nodePackages.prettier
+      typescript-language-server
+      prettier
+
       vscode-langservers-extracted
       tailwindcss-language-server
       emmet-language-server

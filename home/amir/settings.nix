@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   # ============================================================
   #  USER SETTINGS
   #  User-level configuration: directories, default apps,
@@ -10,6 +10,7 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
+    setSessionVariables = false;
   };
 
   # --- DEFAULT APPLICATIONS (double-click behavior) ---
@@ -182,5 +183,8 @@
   };
 
   # Firefox as a stable fallback browser (managed as a program, not a package)
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+  };
 }

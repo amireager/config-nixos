@@ -6,16 +6,16 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Desktop: Niri scrollable tiling compositor
-    niri.url = "github:YaLTeR/niri";
-
-    # UI Framework: Quickshell for custom shell/bar/control center
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
+    niri = {
+      url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Browser: Zen Firefox fork
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # User Management: Home Manager
     home-manager = {
