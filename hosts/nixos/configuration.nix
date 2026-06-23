@@ -4,7 +4,7 @@
   #
   #  Only machine-specific / personal config belongs here:
   #  hardware (GPU, power), kernel, bluetooth, and the personal
-  #  DNS setup. The portable base lives in ../../system/core.nix.
+  #  DNS setup. The portable base lives in ./core.nix.
   # ============================================================
 
   # --- IMPORTS ---
