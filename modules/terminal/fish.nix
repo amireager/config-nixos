@@ -1,11 +1,12 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # Change these to your real flake targets.
   nixosHost = "nixos";
   homeTarget = "amir@nixos";
-in
-{
+in {
   # --- TERMINAL PACKAGES REQUIRED BY FISH CONFIG ---
   home.packages = with pkgs; [
     # Core shell tools
@@ -17,7 +18,6 @@ in
 
     # Modern replacements
     eza
-    bottom
     yazi
 
     # Better completion engine for many CLIs
@@ -35,7 +35,7 @@ in
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
-    options = [ "--cmd" "z" ];
+    options = ["--cmd" "z"];
   };
 
   # --- DIRENV: PROJECT ENVIRONMENT LOADING ---
@@ -219,9 +219,18 @@ in
     '';
 
     plugins = [
-      { name = "colored-man-pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
-      { name = "done"; src = pkgs.fishPlugins.done.src; }
-      { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+      {
+        name = "colored-man-pages";
+        src = pkgs.fishPlugins.colored-man-pages.src;
+      }
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      {
+        name = "fzf-fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
     ];
 
     shellAliases = {
@@ -236,7 +245,7 @@ in
       cat = "bat --style=plain";
       grep = "rg";
       find = "fd";
-      top = "btm";
+      top = "btop";
       cdi = "zi";
 
       # Nix
@@ -257,7 +266,7 @@ in
       hme = "home-manager expire-generations '-7 days'";
 
       # NixOS rebuild shortcuts
-      nrs = "sudo nixos-rebuild switch --flake .#${nixosHost}";
+      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#${nixosHost}";
       nrt = "sudo nixos-rebuild test --flake .#${nixosHost}";
       nrb = "nixos-rebuild build --flake .#${nixosHost}";
       nrd = "nixos-rebuild dry-build --flake .#${nixosHost}";
@@ -267,9 +276,6 @@ in
       # Git
       gst = "git status --short --branch";
       gaa = "git add --all";
-      gcmsg = "git commit -m";
-      gp = "git push";
-      gpl = "git pull --rebase";
       gl = "git log --oneline --graph --decorate";
     };
 
@@ -353,4 +359,3 @@ in
     };
   };
 }
-

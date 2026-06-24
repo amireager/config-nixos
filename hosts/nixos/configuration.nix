@@ -23,7 +23,7 @@
   # --- LAPTOP OPTIMIZATIONS: POWER & THERMAL ---
   services.tlp.enable = true;
   services.upower.enable = true;
-  powerManagement.enable = true;
+  # powerManagement.enable = true;
 
   # --- HYBRID GRAPHICS: NVIDIA + AMD ---
   # (base hardware.graphics is enabled in system/core.nix)
@@ -36,7 +36,7 @@
     powerManagement.finegrained = true;
 
     # GTX 1650 is Turing (TU117) -> open kernel modules are supported & recommended
-    open = true;
+    open = false;
 
     prime = {
       offload = {

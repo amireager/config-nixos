@@ -88,13 +88,13 @@
   # ============================================================
   users.users.amir = {
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel" "video" "audio" "docker" "libvirtd"];
+    extraGroups = ["networkmanager" "wheel" "video" "audio"]; # "docker" "libvirtd"
     shell = pkgs.fish;
   };
   programs.fish.enable = true;
 
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
+  # virtualisation.docker.enable = true;
+  # virtualisation.libvirtd.enable = true;
 
   fonts.packages = with pkgs; [
     vazir-fonts
@@ -119,12 +119,11 @@
     gh
     wget
     pciutils
-    home-manager
 
     # Desktop/Wayland helpers (needed by the Niri session)
     wayland-utils
     glib # gsettings / theming
-    gnome-settings-daemon # GTK consistency
+    gsettings-desktop-schemas # GTK consistency
   ];
 
   # NixOS release this config was written against. Keep stable.

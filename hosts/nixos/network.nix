@@ -15,7 +15,7 @@
 
     firewall = {
       enable = true;
-      trustedInterfaces = ["tun0" "tun1" "CloudflareWARP"];
+      trustedInterfaces = ["tun0" "tun1"];
       checkReversePath = false;
     };
   };
@@ -31,16 +31,16 @@
     settings = {
       listen_addresses = ["127.0.0.1:53" "[::1]:53"];
 
-      bootstrap_resolvers = ["9.9.9.11:53" "8.8.8.8:53"];
+      bootstrap_resolvers = ["1.1.1.1:53" "8.8.8.8:53"];
       ignore_system_dns = true;
       netprobe_timeout = 60;
       netprobe_address = "9.9.9.9:53";
 
       server_names = [
         "cloudflare"
-        "cloudflare-ipv6"
         "google"
         "quad9-dnscrypt-ip4-nofilter-pri"
+        "cloudflare-ipv6"
       ];
 
       doh_servers = true;
@@ -84,35 +84,35 @@
   # ║    nix-shell -p zapret --command "sudo blockcheck"            ║
   # ╚═══════════════════════════════════════════════════════════════╝
 
-  services.zapret = {
-    enable = true;
-
-    whitelist = [
-      "digikala.com"
-      "shaparak.ir"
-      "snapp.ir"
-      "divar.ir"
-      "aparat.com"
-    ];
-
-    params = [
-      # HTTPS (443) — multidisorder + smart TTL
-      "--filter-tcp=443"
-      "--dpi-desync=multidisorder"
-      "--dpi-desync-split-pos=midsld"
-      "--dpi-desync-ttl=1"
-      "--dpi-desync-autottl=2"
-      "--dpi-desync-fooling=md5sig"
-      "--dpi-desync-cutoff=d4"
-      "--new"
-
-      # HTTP (80) — multisplit
-      "--filter-tcp=80"
-      "--dpi-desync=multisplit"
-      "--dpi-desync-split-pos=method+2,midsld"
-      "--dpi-desync-cutoff=d4"
-    ];
-  };
+  # services.zapret = {
+  #   enable = true;
+  #
+  #   whitelist = [
+  #     "digikala.com"
+  #     "shaparak.ir"
+  #     "snapp.ir"
+  #     "divar.ir"
+  #     "aparat.com"
+  #   ];
+  #
+  #   params = [
+  #     # HTTPS (443) — multidisorder + smart TTL
+  #     "--filter-tcp=443"
+  #     "--dpi-desync=multidisorder"
+  #     "--dpi-desync-split-pos=midsld"
+  #     "--dpi-desync-ttl=1"
+  #     "--dpi-desync-autottl=2"
+  #     "--dpi-desync-fooling=md5sig"
+  #     "--dpi-desync-cutoff=d4"
+  #     "--new"
+  #
+  #     # HTTP (80) — multisplit
+  #     "--filter-tcp=80"
+  #     "--dpi-desync=multisplit"
+  #     "--dpi-desync-split-pos=method+2,midsld"
+  #     "--dpi-desync-cutoff=d4"
+  #   ];
+  # };
 
   # ╔═══════════════════════════════════════════════════════════════╗
   # ║  LAYER 4: WARP (Cloudflare) — for IP-blocked sites            ║

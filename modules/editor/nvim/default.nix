@@ -6,7 +6,6 @@
       cpp
       css
       dockerfile
-      fish
       git_config
       git_rebase
       gitattributes

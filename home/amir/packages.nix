@@ -28,7 +28,7 @@
     inputs.zen-browser.packages."${stdenv.hostPlatform.system}".default
     telegram-desktop
     qutebrowser
-    tor-browser
+    # tor-browser
 
     # --- Multimedia (view & play) ---
     imv # Image viewer (Wayland native)
@@ -89,7 +89,5 @@
     # eza bat ripgrep fd fzf carapace starship zoxide direnv
     # bottom jq nh nix-output-monitor grc yazi tealdeer
     # (bottom is now redundant since btop is our main monitor)
-    adwaita-qt
-    adwaita-qt6
   ];
 }
