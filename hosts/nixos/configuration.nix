@@ -35,7 +35,8 @@
     # GTX 1650 (Turing): GPU fully powers off when idle -> big battery savings
     powerManagement.finegrained = true;
 
-    # GTX 1650 is Turing (TU117) -> open kernel modules are supported & recommended
+    # TU117 chip (GTX 1650 Mobile) lacks GSP firmware, so open modules DO NOT work.
+    # Therefore, we must explicitly set open = false to use the proprietary driver.
     open = false;
 
     prime = {

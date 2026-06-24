@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  username,
   ...
 }: {
   # ============================================================
@@ -86,7 +87,7 @@
   # ============================================================
   #  USER / SHELL / FONTS / LOCALE
   # ============================================================
-  users.users.amir = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = ["networkmanager" "wheel" "video" "audio"]; # "docker" "libvirtd"
     shell = pkgs.fish;
@@ -120,11 +121,27 @@
     wget
     pciutils
 
+    home-manager
+
     # Desktop/Wayland helpers (needed by the Niri session)
     wayland-utils
     glib # gsettings / theming
     gsettings-desktop-schemas # GTK consistency
   ];
+
+  # ============================================================
+  #  NIX HELPER (nh) - The modern way to manage NixOS
+  # ============================================================
+  programs.nh = {
+    enable = true;
+    flake = "/home/${username}/config-nixos";
+
+    # Auto-cleanup for older generations
+    clean = {
+      enable = true;
+      extraArgs = "--keep-since 10d --keep 3";
+    };
+  };
 
   # NixOS release this config was written against. Keep stable.
   system.stateVersion = "24.11";
