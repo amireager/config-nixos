@@ -134,13 +134,21 @@
   # ============================================================
   programs.nh = {
     enable = true;
-    flake = "/home/${username}/config-nixos";
+    flake = "/etc/nixos";
 
     # Auto-cleanup for older generations
     clean = {
       enable = true;
       extraArgs = "--keep-since 10d --keep 3";
     };
+  };
+
+  # ============================================================
+  # AppImage Runer
+  # ============================================================
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
   };
 
   # NixOS release this config was written against. Keep stable.
