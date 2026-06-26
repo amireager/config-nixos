@@ -36,7 +36,7 @@
   # 3. DNSCRYPT PROXY (The Worker)
   # ═══════════════════════════════════════════
 
-  services.dnscrypt-proxy2 = {
+  services.dnscrypt-proxy = {
     enable = true;
 
     settings = {
@@ -85,7 +85,38 @@
   networking.nameservers = ["127.0.0.1"];
 
   # ═══════════════════════════════════════════
-  # 4. PACKAGES (The Tools)
+  # 4. BYEDPI - DPI Bypass (YouTube, Twitter, ...)
+  # ═══════════════════════════════════════════
+
+  systemd.services.byedpi = {
+    description = "ByeDPI DPI Bypass";
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.byedpi}/bin/ciadpi -p 1080 --disorder 1 --split 1+s --tlsrec 1+s --fake -1 --ttl 8";
+      Restart = "always";
+      RestartSec = 3;
+      DynamicUser = true;
+    };
+  };
+
+  # ═══════════════════════════════════════════
+  # 2. PROXYCHAINS - For apps without SOCKS support
+  # ═══════════════════════════════════════════
+
+  environment.etc."proxychains.conf".text = ''
+    strict_chain
+    proxy_dns
+    tcp_read_time_out 15000
+    tcp_connect_time_out 8000
+    [ProxyList]
+    socks5 127.0.0.1 1080
+  '';
+
+  # ═══════════════════════════════════════════
+  # 5. PACKAGES (The Tools)
   # ═══════════════════════════════════════════
 
   environment.systemPackages = with pkgs; [
@@ -95,5 +126,9 @@
     httpie # User-friendly HTTP client
     dig # (part of bind) Standard DNS tool
     tcpdump # Network sniffer (useful for debugging)
+    ipset # Required for Zapret whitelist
+    # DPI Bypass
+    byedpi
+    proxychains-ng
   ];
 }
