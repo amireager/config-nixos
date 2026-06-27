@@ -103,32 +103,47 @@
   };
 
   # ═══════════════════════════════════════════
-  # 2. PROXYCHAINS - For apps without SOCKS support
+  # 5. V2RAYA - Proxy Management GUI
   # ═══════════════════════════════════════════
 
-  environment.etc."proxychains.conf".text = ''
-    strict_chain
-    proxy_dns
-    tcp_read_time_out 15000
-    tcp_connect_time_out 8000
-    [ProxyList]
-    socks5 127.0.0.1 1080
-  '';
+  services.v2raya = {
+    enable = true;
+  };
 
   # ═══════════════════════════════════════════
-  # 5. PACKAGES (The Tools)
+  # -- PACKAGES (The Tools)
   # ═══════════════════════════════════════════
 
   environment.systemPackages = with pkgs; [
+    # DNS
     doggo # Modern DNS lookup tool
+
+    # HTTP / Download
     curl # HTTP client
     wget # Download utility
-    httpie # User-friendly HTTP client
-    dig # (part of bind) Standard DNS tool
-    tcpdump # Network sniffer (useful for debugging)
-    ipset # Required for Zapret whitelist
+
+    # Debugging
+    tcpdump # Network sniffer
+
     # DPI Bypass
-    byedpi
-    proxychains-ng
+    byedpi # Lightweight DPI circumvention
+
+    # --- Proxy Platforms ---
+    xray # VLESS/VMess/Reality proxy platform
+    sing-box # Modern all-in-one proxy platform
+
+    # --- Per-App Proxy ---
+    torsocks # Syscall-level SOCKS5 (any SOCKS5, not just Tor)
+    proxychains-ng # Config-based per-app proxy (different config per proxy)
+
+    # --- Free Tunneling ---
+    cloudflared # Cloudflare WARP tunnel (free, no server)
+    tor # Tor network (slow but reliable fallback)
+
+    wgcf # Generate WireGuard config from Cloudflare WARP account
+    wireguard-tools # WireGuard VPN tools
+
+    # --- Proxy Management GUI ---
+    v2rayn # Web GUI: manage subscriptions, test nodes, routing
   ];
 }

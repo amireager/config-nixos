@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   username,
+  flakePath,
   ...
 }: {
   # ============================================================
@@ -134,7 +135,7 @@
   # ============================================================
   programs.nh = {
     enable = true;
-    flake = "/etc/nixos";
+    flake = flakePath;
 
     # Auto-cleanup for older generations
     clean = {

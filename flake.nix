@@ -34,13 +34,15 @@
     username = "amir";
     hostname = "nixos";
 
+    flakePath = "/home/${username}/nixos-config";
+
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
     };
 
     specialArgs = {
-      inherit inputs username hostname system;
+      inherit inputs username hostname system flakePath;
     };
   in {
     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {

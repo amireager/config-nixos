@@ -57,25 +57,49 @@
     # 2) CLI TOOLS (active)
     # ========================================================
 
-    # --- Modern replacements ---
-    dust # `du` replacement — disk-usage tree
-    duf # `df` replacement — pretty mounted-disk overview
-    procs # `ps` replacement — colored process list
-    sd # `sed`/`awk` replacement — dead-simple find & replace
+    # ----------------------------------------------------------
+    # MONITORING & SYSTEM OBSERVABILITY
+    # ----------------------------------------------------------
+
+    # --- Already managed via programs.* in settings.nix ---
+    # btop          → CPU/RAM/Disk/Network monitor (main dashboard)
+    # fastfetch     → System info fetch
+
+    # --- Already provided by fish.nix module ---
+    bottom # Alternative monitor (replaced by btop)
+
+    # --- GPU Monitoring ---
+    # nvtop # GPU monitor for Nvidia/AMD/Intel (GTX 1650 supported)
+
+    # --- Network Monitoring ---
+    bandwhich # Bandwidth per process (needs sudo)
+    nload # Live network throughput graph
+    doggo # Modern DNS lookup tool (already in network.nix)
+
+    # --- Disk I/O ---
+    iotop # Disk usage per process (needs sudo)
+    dust # Disk usage tree (better du)
+    duf # Pretty disk overview (better df)
+
+    # --- CPU ---
+    s-tui # CPU stress test + monitor (temp, freq, power)
+
+    # --- Process Monitoring ---
+    procs # Colored process list (better ps)
+
+    # --- Find & Replace ---
+    sd # Simple find & replace (better sed/awk)
 
     # --- Dev / productivity ---
     hyperfine # Statistical command-line benchmarking
-    just # Modern task runner (a friendly `make`)
-
-    # --- Monitoring ---
-    # nvtop # GPU monitor (Nvidia/AMD/Intel) — btop handles CPU/RAM
+    just # Modern task runner (a friendly make)
 
     # --- Nix workflow ---
     nixd # Nix language server (LSP)
-    nix-tree # Explore a derivation's dependency tree
-    nvd # Diff two generations (what changed after a rebuild)
+    nix-tree # Explore derivation dependency tree
+    nvd # Diff two generations (what changed after rebuild)
     nix-init # Generate package expressions from a URL
-    comma # Run any program without installing: `, cowsay hi`
+    comma # Run any program without installing: , cowsay hi
 
     # ========================================================
     # 3) REFERENCE — kept but COMMENTED (live elsewhere)

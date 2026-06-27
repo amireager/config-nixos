@@ -139,7 +139,7 @@
     settings = {
       user = {
         name = "amireager";
-        email = "parviziamir63@gmail.com";
+        email = "292326621+amireager@users.noreply.github.com";
       };
 
       alias = {

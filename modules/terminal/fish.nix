@@ -1,6 +1,7 @@
 {
   pkgs,
   hostname,
+  flakePath,
   ...
 }: {
   # --- TERMINAL PACKAGES REQUIRED BY FISH CONFIG ---
@@ -161,7 +162,7 @@
       nfc = "nix flake check";
 
       # Using nh for system rebuilds (much faster, pretty output)
-      nrf = "sudo nixos-rebuild switch --flake /etc/nixos#${hostname}";
+      nrf = "sudo nixos-rebuild switch --flake ${flakePath}#${hostname}";
       nrs = "nh os switch";
       nrt = "nh os test";
       nrb = "nh os build";
