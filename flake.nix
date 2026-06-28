@@ -11,6 +11,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Desktop Shell: Noctalia (bar, notifications, launcher, wallpaper, ...)
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/cachix";
+      # Do NOT add inputs.nixpkgs.follows — needed for binary cache to work
+    };
+
     # Browser: Zen Firefox fork
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -49,10 +55,8 @@
       inherit system specialArgs;
 
       modules = [
-        # Host-specific NixOS configuration
         ./hosts/nixos/configuration.nix
 
-        # Home Manager as a NixOS module
         home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -61,16 +65,12 @@
             backupFileExtension = "backup";
             extraSpecialArgs = specialArgs;
 
-            # Main Home Manager entry point for user 'amir'
             users.${username} = import ./home/amir;
           };
         }
       ];
     };
 
-    # Standalone Home Manager target.
-    # Use this for fast user-level rebuilds:
-    #   home-manager switch --flake .#amir@nixos
     homeConfigurations."${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = specialArgs;
@@ -79,8 +79,6 @@
       ];
     };
 
-    # Optional formatter for this flake:
-    #   nix fmt
     formatter.${system} = pkgs.alejandra;
   };
 }

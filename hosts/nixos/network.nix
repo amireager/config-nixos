@@ -21,6 +21,7 @@
 
   # Basic Firewall (allows outgoing, blocks unsolicited incoming)
   networking.firewall.enable = true;
+  networking.firewall.allowedUDPPorts = [53];
 
   # ═══════════════════════════════════════════
   # 2. DNS LOCKDOWN (The Lock)
@@ -45,7 +46,7 @@
 
       # --- SELF-HEALING / BOOTSTRAP LOGIC ---
       # Use direct IPs for initial connection so we don't need DNS to get DNS
-      bootstrap_resolvers = ["1.1.1.1:53" "8.8.8.8:53"];
+      bootstrap_resolvers = ["9.9.9.9:53" "1.1.1.1:53" "8.8.8.8:53"];
       ignore_system_dns = true;
 
       # Check connectivity using an IP (doesn't need DNS resolution)
@@ -54,12 +55,13 @@
       # --------------------------------------
 
       # Minimal server list to start with
-      server_names = ["cloudflare"];
+      # server_names = ["cloudflare"];
 
       # Fetch the full resolver list automatically
       sources.public-resolvers = {
         urls = [
           "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
         ];
         cache_file = "/var/cache/dnscrypt-proxy/public-resolvers.md";
         minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
@@ -69,8 +71,8 @@
       # Cache & Security
       cache = true;
       cache_size = 512;
-      cache_min_ttl = 600;
-      cache_max_ttl = 86400;
+      cache_min_ttl = 60;
+      cache_max_ttl = 3600;
 
       ipv6_servers = false;
       block_ipv6 = true;

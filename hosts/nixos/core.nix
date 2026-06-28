@@ -22,10 +22,14 @@
     experimental-features = ["nix-command" "flakes"];
     auto-optimise-store = true;
 
-    # Binary cache for niri (avoids compiling from source).
-    substituters = ["https://niri.cachix.org"];
+    # Binary caches
+    substituters = [
+      "https://niri.cachix.org"
+      "https://noctalia.cachix.org"
+    ];
     trusted-public-keys = [
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
 

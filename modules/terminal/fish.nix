@@ -166,8 +166,8 @@
       nrs = "nh os switch";
       nrt = "nh os test";
       nrb = "nh os build";
-      hms = "nh home switch /etc/nixos";
-      hmb = "nh home build /etc/nixos";
+      hms = "nh home switch";
+      hmb = "nh home build";
 
       # Clean up older generations
       # clean = "nh clean all";

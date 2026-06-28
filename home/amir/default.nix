@@ -12,10 +12,8 @@
     ./packages.nix
     ./settings.nix
 
-    # Desktop environment
-    ../../modules/desktop/niri/default.nix
-    ../../modules/desktop/waybar.nix
-    ../../modules/desktop/theme.nix
+    # Desktop environment (compositor + theme + notifications)
+    ../../modules/desktop
 
     # Editor
     ../../modules/editor/nvim
