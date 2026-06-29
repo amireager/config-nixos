@@ -110,6 +110,10 @@
 
   services.v2raya = {
     enable = true;
+    # SECURITY: v2raya web panel listens on port 2017 by default.
+    # Make sure firewall blocks this port from external access:
+    #   networking.firewall.allowedTCPPorts = [ ];  # do NOT add 2017 here
+    # Or set a password in the v2raya web UI after first login.
   };
 
   # ═══════════════════════════════════════════

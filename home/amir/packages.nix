@@ -74,7 +74,7 @@
     # --- Network Monitoring ---
     bandwhich # Bandwidth per process (needs sudo)
     nload # Live network throughput graph
-    doggo # Modern DNS lookup tool (already in network.nix)
+    # doggo # Modern DNS lookup tool (already in network.nix)
 
     # --- Disk I/O ---
     iotop # Disk usage per process (needs sudo)

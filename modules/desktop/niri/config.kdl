@@ -132,7 +132,7 @@ binds {
     Mod+Shift+Q { quit; }
     Mod+T { toggle-window-floating; }
     Mod+F { maximize-column; }
-    Mod+Alt+F { maximize-window; }
+    // Mod+Alt+F { maximize-window; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Ctrl+F { toggle-windowed-fullscreen; }
     Mod+C { center-column; }
@@ -199,6 +199,7 @@ binds {
 }
 
 // --- STARTUP ---
-spawn-at-startup "noctalia"
+// spawn-at-startup "noctalia"
 spawn-at-startup "nm-applet"
+spawn-at-startup "blueman-applet"
 

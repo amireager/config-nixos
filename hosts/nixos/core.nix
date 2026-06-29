@@ -123,7 +123,6 @@
     vim
     git
     gh
-    wget
     pciutils
 
     home-manager
@@ -144,7 +143,7 @@
     # Auto-cleanup for older generations
     clean = {
       enable = true;
-      extraArgs = "--keep-since 10d --keep 3";
+      extraArgs = "--keep-since 30d --keep 5";
     };
   };
 
