@@ -73,7 +73,7 @@
   #  SECURITY / SESSION
   # ============================================================
   # PAM entry so swaylock can verify your password (CRITICAL!)
-  security.pam.services.swaylock = {};
+  # security.pam.services.swaylock = {};
   # Authentication dialogs for GUI apps (mounting disks, etc.)
   security.polkit.enable = true;
 
@@ -131,6 +131,9 @@
     wayland-utils
     glib # gsettings / theming
     gsettings-desktop-schemas # GTK consistency
+
+    # FHS compatibility layer (for AppImages, .deb/.rpm extracts, etc.)
+    # steam-run
   ];
 
   # ============================================================
@@ -145,6 +148,29 @@
       enable = true;
       extraArgs = "--keep-since 30d --keep 5";
     };
+  };
+
+  # ============================================================
+  #  ENVIRONMENT VARIABLES
+  # ============================================================
+  environment.sessionVariables = {
+    # Force Wayland backend for Avalonia (.NET) apps like v2rayN
+    AVALONIA_PLATFORM = "Wayland";
+    # Qt apps should use Wayland too
+    QT_QPA_PLATFORM = "wayland";
+    # Electron/Chromium apps (already set in HM, but system-level too)
+    NIXOS_OZONE_WL = "1";
+  };
+
+  # ============================================================
+  #  XDG DESKTOP PORTAL (file picker, screencast, etc.)
+  # ============================================================
+  xdg.portal = {
+    enable = true;
+    # wlr is for wlroots-based compositors, but niri uses xdg-desktop-portal-gnome
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+    ];
   };
 
   # ============================================================

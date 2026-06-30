@@ -41,7 +41,6 @@
     poppler-utils # PDF CLI tools (pdftotext, ...)
 
     # --- Archives (thunar-archive-plugin NEEDS a real archive tool!) ---
-    xarchiver
     zip
     unzip
     p7zip
@@ -72,9 +71,7 @@
     # nvtop # GPU monitor for Nvidia/AMD/Intel (GTX 1650 supported)
 
     # --- Network Monitoring ---
-    bandwhich # Bandwidth per process (needs sudo)
     nload # Live network throughput graph
-    # doggo # Modern DNS lookup tool (already in network.nix)
 
     # --- Disk I/O ---
     iotop # Disk usage per process (needs sudo)
@@ -93,6 +90,11 @@
     # --- Dev / productivity ---
     hyperfine # Statistical command-line benchmarking
     just # Modern task runner (a friendly make)
+    httpie # Human-friendly HTTP client (API testing)
+    tokei # Count lines of code (fast, accurate)
+    strace # Trace system calls (debugging)
+    socat # Multipurpose socket tool (network debug)
+    gh-dash # GitHub dashboard TUI
 
     # --- Nix workflow ---
     nixd # Nix language server (LSP)

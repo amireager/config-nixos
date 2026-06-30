@@ -32,8 +32,8 @@
   #   zramSwap.memoryPercent = 50;
   # Option B: Swap file
   #   swapDevices = [{ device = "/swapfile"; size = 4096; }];
-  # --- LAPTOP OPTIMIZATIONS: POWER & THERMAL ---
 
+  # --- LAPTOP OPTIMIZATIONS: POWER & THERMAL ---
   services.tlp.enable = true;
   services.upower.enable = true;
   # powerManagement.enable = true;
