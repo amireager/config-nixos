@@ -150,6 +150,6 @@
     wireguard-tools # WireGuard VPN tools
 
     # --- Proxy Management GUI ---
-    v2rayn # Web GUI: manage subscriptions, test nodes, routing
+    # v2rayn # Web GUI: manage subscriptions, test nodes, routing
   ];
 }

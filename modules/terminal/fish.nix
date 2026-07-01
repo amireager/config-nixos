@@ -17,6 +17,9 @@
     eza
     yazi
 
+    # Markdown viewer (terminal)
+    glow
+
     # Better completion engine for many CLIs
     carapace
 

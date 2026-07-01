@@ -134,6 +134,7 @@
 
     # FHS compatibility layer (for AppImages, .deb/.rpm extracts, etc.)
     # steam-run
+    fuse3
   ];
 
   # ============================================================
@@ -141,8 +142,7 @@
   # ============================================================
   programs.nh = {
     enable = true;
-    # flake = flakePath;
-    flake = "/home/amir/config-nixos";
+    flake = flakePath;
 
     # Auto-cleanup for older generations
     clean = {
@@ -171,16 +171,25 @@
     # wlr is for wlroots-based compositors, but niri uses xdg-desktop-portal-gnome
     extraPortals = with pkgs; [
       xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk # needed by Flatpak
     ];
   };
 
   # ============================================================
-  # AppImage Runer
+  # AppImage Runner
   # ============================================================
   programs.appimage = {
     enable = true;
     binfmt = true;
   };
+
+  # FUSE — required for AppImage internal mount
+  boot.kernelModules = ["fuse"];
+
+  # ============================================================
+  # FLATPAK
+  # ============================================================
+  services.flatpak.enable = true;
 
   # NixOS release this config was written against. Keep stable.
   system.stateVersion = "24.11";

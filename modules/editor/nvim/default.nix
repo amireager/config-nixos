@@ -117,6 +117,9 @@ in {
       mini-nvim
       guess-indent-nvim
 
+      # Markdown
+      render-markdown-nvim
+
       # Git and REPL
       gitsigns-nvim
       vim-slime
@@ -137,6 +140,7 @@ in {
       ${builtins.readFile ./lua/git.lua}
       ${builtins.readFile ./lua/productivity.lua}
       ${builtins.readFile ./lua/run.lua}
+      ${builtins.readFile ./lua/markdown.lua}
     '';
   };
 }

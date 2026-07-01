@@ -25,13 +25,12 @@
     "vm.vfs_cache_pressure" = 50;
   };
 
-  # --- SWAP ---
-  # Without swap, OOM killer will terminate apps when RAM is full.
-  # Option A: ZRAM (recommended for laptops with SSD)
-  #   zramSwap.enable = true;
-  #   zramSwap.memoryPercent = 50;
-  # Option B: Swap file
-  #   swapDevices = [{ device = "/swapfile"; size = 4096; }];
+  # --- SWAP (ZRAM) ---
+  # Compressed RAM swap — fast, no disk wear, perfect for SSD laptops.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
 
   # --- LAPTOP OPTIMIZATIONS: POWER & THERMAL ---
   services.tlp.enable = true;
