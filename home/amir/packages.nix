@@ -57,7 +57,7 @@
     # ========================================================
 
     # ----------------------------------------------------------
-    # MONITORING & SYSTEM OBSERVABILITY
+    # SYSTEM MONITORING
     # ----------------------------------------------------------
 
     # --- Already managed via programs.* in settings.nix ---
@@ -65,43 +65,55 @@
     # fastfetch     → System info fetch
 
     # --- Already provided by fish.nix module ---
-    bottom # Alternative monitor (replaced by btop)
+    # bottom is installed via modules/terminal/fish.nix
+
+    # --- Disk I/O ---
+    iotop # Disk usage per process (needs sudo)
+    dust # Disk usage tre
+
+    bandwhich # Network usage per-process (realtime)
+    erdtree # Directory tree with icons (better dust)
+    procs # Colored process list (better ps)
 
     # --- GPU Monitoring ---
     # nvtop # GPU monitor for Nvidia/AMD/Intel (GTX 1650 supported)
 
-    # --- Network Monitoring ---
-    nload # Live network throughput graph
+    # ----------------------------------------------------------
+    # WAYLAND / NIRI TOOLS
+    # ----------------------------------------------------------
 
-    # --- Disk I/O ---
-    iotop # Disk usage per process (needs sudo)
-    dust # Disk usage tree (better du)
-    duf # Pretty disk overview (better df)
+    grim # Screenshot tool (Wayland)
+    slurp # Region selection for screenshots (Wayland)
+    wl-screenrec # Screen recorder (Wayland)
+    brightnessctl # Screen brightness control
+    pamixer # Volume control from terminal
+    bluetui # Bluetooth TUI manager
+    wl-clipboard # copy/paste for Wayland
 
-    # --- CPU ---
-    s-tui # CPU stress test + monitor (temp, freq, power)
+    # ----------------------------------------------------------
+    # CLI UTILITIES
+    # ----------------------------------------------------------
 
-    # --- Process Monitoring ---
-    procs # Colored process list (better ps)
-
-    # --- Find & Replace ---
     sd # Simple find & replace (better sed/awk)
-
-    # --- Dev / productivity ---
+    xh # HTTP client (modern httpie alternative, Rust)
+    rsync # File sync / incremental copy
+    file # Detect file type
+    grex # Generate regex from examples
+    hexyl # Hex viewer
+    tailspin # Log viewer with auto-highlighting
+    navi # Interactive cheatsheet (complements tealdeer)
     hyperfine # Statistical command-line benchmarking
     just # Modern task runner (a friendly make)
-    httpie # Human-friendly HTTP client (API testing)
-    tokei # Count lines of code (fast, accurate)
-    strace # Trace system calls (debugging)
-    socat # Multipurpose socket tool (network debug)
     gh-dash # GitHub dashboard TUI
 
-    # --- Nix workflow ---
+    # ----------------------------------------------------------
+    # NIX WORKFLOW
+    # ----------------------------------------------------------
+
     nixd # Nix language server (LSP)
     nix-tree # Explore derivation dependency tree
     nvd # Diff two generations (what changed after rebuild)
-    nix-init # Generate package expressions from a URL
-    comma # Run any program without installing: , cowsay hi
+    nix-search-tv # Search nixpkgs with fzf
 
     # ========================================================
     # 3) REFERENCE — kept but COMMENTED (live elsewhere)
@@ -109,11 +121,9 @@
 
     # --- Multiplexer ---
     # tmux is enabled & configured via programs.tmux in ./settings.nix
-    # zellij                # alt multiplexer; sticking with tmux for now
 
     # --- Provided by modules/terminal/fish.nix (terminal module) ---
     # eza bat ripgrep fd fzf carapace starship zoxide direnv
-    # bottom jq nh nix-output-monitor grc yazi tealdeer
-    # (bottom is now redundant since btop is our main monitor)
+    # bottom jq nh nix-output-monitor grc yazi tealdeer glow
   ];
 }

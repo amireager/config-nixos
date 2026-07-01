@@ -73,7 +73,7 @@
   #  SECURITY / SESSION
   # ============================================================
   # PAM entry so swaylock can verify your password (CRITICAL!)
-  # security.pam.services.swaylock = {};
+  security.pam.services.swaylock = {};
   # Authentication dialogs for GUI apps (mounting disks, etc.)
   security.polkit.enable = true;
 

@@ -8,9 +8,10 @@
   # ============================================================
 
   home.packages = with pkgs; [
-    wl-clipboard
+    # wl-clipboard
     networkmanagerapplet
     blueman
+    swayidle # Idle management: lock, screen off, suspend
   ];
 
   # NOTE: These are now provided by Noctalia:
