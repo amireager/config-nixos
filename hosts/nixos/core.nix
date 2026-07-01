@@ -141,7 +141,8 @@
   # ============================================================
   programs.nh = {
     enable = true;
-    flake = flakePath;
+    # flake = flakePath;
+    flake = "/home/amir/config-nixos";
 
     # Auto-cleanup for older generations
     clean = {

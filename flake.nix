@@ -40,7 +40,7 @@
     username = "amir";
     hostname = "nixos";
 
-    flakePath = "/home/${username}/nixos-config";
+    flakePath = "/home/${username}/config-nixos";
 
     pkgs = import nixpkgs {
       inherit system;
